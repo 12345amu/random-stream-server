@@ -5,6 +5,9 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1"
   }
-
 }
