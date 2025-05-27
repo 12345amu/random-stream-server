@@ -6,6 +6,9 @@ const PORT = 3000;
 
 const clients = [];
 
+const values = [];
+
+
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/stream', (req, res) => {
