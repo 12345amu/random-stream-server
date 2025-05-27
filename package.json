@@ -1,5 +1,10 @@
 {
   "name": "random-stream-server",
   "version": "1.0.0",
-  "description": "Streams random numbers from server to browser using SSE"
+  "description": "Streams random numbers from server to browser using SSE",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  }
+
 }
