@@ -14,7 +14,6 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.get('/stream', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
- 
   res.flushHeaders();
 
   clients.push(res);
@@ -31,6 +30,12 @@ setInterval(() => {
   const data = { value: randomValue, time: timestamp };
 
   values.push(data);
+
+  clients.forEach(client => {
+    client.write(`data: ${JSON.stringify(data)}\n\n`);
+  });
+
+  console.log(`Generated: ${randomValue}`);
 }, 1000);
 
 app.listen(PORT, () => {
