@@ -28,7 +28,10 @@
 
 
 
-    log.appendChild(entry);
+  entry.appendChild(timeSpan);
+  entry.appendChild(valueSpan);
+
+  log.appendChild(entry);
   };
 
   evtSource.onerror = (err) => {
