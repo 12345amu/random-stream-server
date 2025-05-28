@@ -26,12 +26,14 @@
   valueSpan.className = 'value';
   valueSpan.textContent = data.value;
 
-
-
   entry.appendChild(timeSpan);
   entry.appendChild(valueSpan);
-
   log.appendChild(entry);
+
+    if (log.textContent.includes('Waiting for data')) {
+    log.textContent = '';
+  }
+
   };
 
   evtSource.onerror = (err) => {
