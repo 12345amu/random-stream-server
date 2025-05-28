@@ -17,6 +17,17 @@
     const data = JSON.parse(event.data);
     const entry = document.createElement('div');
     entry.textContent = event.data;
+
+  const timeSpan = document.createElement('span');
+  timeSpan.className = 'time';
+  timeSpan.textContent = new Date(data.time).toLocaleTimeString();
+
+  const valueSpan = document.createElement('span');
+  valueSpan.className = 'value';
+  valueSpan.textContent = data.value;
+
+
+
     log.appendChild(entry);
   };
 
