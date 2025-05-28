@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Random Number Stream</title>
+
 </head>
 <body>
   <h1>Live Random Number Stream</h1>
@@ -28,7 +29,7 @@
 
   entry.appendChild(timeSpan);
   entry.appendChild(valueSpan);
-  log.appendChild(entry);
+  log.insertBefore(entry, log.firstChild);
 
     if (log.textContent.includes('Waiting for data')) {
     log.textContent = '';
