@@ -7,8 +7,8 @@
 
   
   <style>
-  #grid-box { width: 20px; height: 20px; border-radius: 4px; background-color: #ebedf0; border: 1px solid #ccc; margin-bottom: 10px; }
   body { font-family: Arial, sans-serif; padding: 20px; }
+  #grid-box { width: 20px; height: 20px; border-radius: 4px; background-color: #ebedf0; border: 1px solid #ccc; margin-bottom: 10px; }
   #log { margin-top: 20px; max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
   .entry { margin-bottom: 6px; }
   .time { color: #555; font-size: 0.9em; margin-right: 10px; }
@@ -18,29 +18,34 @@
 </head>
 <body>
   <h1>Live Random Number Stream</h1>
+    <div id="grid-box" title="Dynamic color box"></div>
+
   <div id="log">Waiting for data...</div>
-  <div id="grid-box" title="Dynamic color box"></div>
 
   <script>
   const log = document.getElementById('log');
+  const box = document.getElementById('grid-box');
   const evtSource = new EventSource('/stream');
 
   evtSource.onmessage = (event) => {
     const data = JSON.parse(event.data);
+    const value = data.value;
+
+    const green = Math.floor((value / 100) * 255);
+    box.style.backgroundColor = `rgb(0, ${green}, 0)`;
+
     const entry = document.createElement('div');
-    entry.textContent = event.data;
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'time';
+    timeSpan.textContent = new Date(data.time).toLocaleTimeString();
 
-  const timeSpan = document.createElement('span');
-  timeSpan.className = 'time';
-  timeSpan.textContent = new Date(data.time).toLocaleTimeString();
+    const valueSpan = document.createElement('span');
+    valueSpan.className = 'value';
+    valueSpan.textContent = value;
 
-  const valueSpan = document.createElement('span');
-  valueSpan.className = 'value';
-  valueSpan.textContent = data.value;
-
-  entry.appendChild(timeSpan);
-  entry.appendChild(valueSpan);
-  log.insertBefore(entry, log.firstChild);
+    entry.appendChild(timeSpan);
+    entry.appendChild(valueSpan);
+    log.insertBefore(entry, log.firstChild);
 
     if (log.textContent.includes('Waiting for data')) {
     log.textContent = '';
